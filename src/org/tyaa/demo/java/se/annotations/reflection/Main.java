@@ -1,23 +1,26 @@
 package org.tyaa.demo.java.se.annotations.reflection;
 
+import org.tyaa.demo.java.se.annotations.reflection.annotations.DemoBean;
 import org.tyaa.demo.java.se.annotations.reflection.beans.Factorial;
 import org.tyaa.demo.java.se.annotations.reflection.beans.Fibonacci;
 import org.tyaa.demo.java.se.annotations.reflection.beans.MathDemo;
 
+import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        /* Factorial factorial = new Factorial();
-        System.out.println(factorial.getValues());
-        factorial.setValues(7);
-        System.out.println(factorial.getValues()); */
+    // Factorial or Fibonacci specification
+    @DemoBean(numericSequenceBeanName = "Fibonacci")
+    private static MathDemo mathDemo;
+
+    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException, URISyntaxException, ClassNotFoundException {
         System.out.println("*** Math Demo ***");
+        MathContainer.run(Main.class);
+        System.out.println("mathDemo = " + mathDemo);
         System.out.println("Input an integer value then press Enter:");
         Scanner scanner = new Scanner(System.in);
-        MathDemo mathDemo = new MathDemo();
-        // mathDemo.runDemo(new Factorial(), scanner.nextInt());
-        mathDemo.runDemo(new Fibonacci(), scanner.nextInt());
+        mathDemo.runDemo(scanner.nextInt());
     }
 }

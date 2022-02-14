@@ -1,16 +1,25 @@
 package org.tyaa.demo.java.se.annotations.reflection.beans;
 
+import org.tyaa.demo.java.se.annotations.reflection.annotations.Inject;
+
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class MathDemo implements Serializable {
-    /* public void runDemo (Factorial factorial, Integer n) {
-        factorial.setValues(n);
+
+    @Inject
+    Object feature;
+
+    public void runDemo (Integer n) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class<?> featureClass = feature.getClass();
+        System.out.println(featureClass.getName());
+        Method setValuesMethod =
+            featureClass.getMethod("setValues", Integer.class);
+        setValuesMethod.invoke(feature, n);
         System.out.println("Results:");
-        System.out.println(factorial.getValues());
-    } */
-    public void runDemo (Fibonacci fibonacci, Integer n) {
-        fibonacci.setValues(n);
-        System.out.println("Results:");
-        System.out.println(fibonacci.getValues());
+        Method getValuesMethod =
+            featureClass.getMethod("getValues");
+        System.out.println(getValuesMethod.invoke(feature));
     }
 }
